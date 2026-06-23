@@ -12,15 +12,19 @@ jobs:
 
       # 2: Install pandoc dependencies
       - name: Install dependencies
-        run: sudo apt install texlive texlive-latex-extra
+        run: sudo apt install texlive texlive-latex-extra pandoc
 
-      # 3: Install pandoc and convert md to pdf
-      - name: Conversion
-        uses: docker://pandoc/core:latest
-        with:
-          args: >-
-            -o README.pdf
-            README.md
+      # 3: Convert
+      - name: Convert Markdown to PDF
+        run: pandoc README.md -o README.pdf
+
+      # # 3: Install pandoc and convert md to pdf
+      # - name: Conversion
+      #   uses: docker://pandoc/core:latest
+      #   with:
+      #     args: >-
+      #       -o README.pdf
+      #       README.md
 
       # 4: Upload generated PDF as artifact
       - name: Upload Documentation
