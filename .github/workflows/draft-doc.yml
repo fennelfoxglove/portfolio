@@ -1,0 +1,52 @@
+name: Doc to PDF Draft
+
+# TODO: add permissions
+permissions:
+  actions: write
+  contents: write
+
+on: 
+  push:
+    branches:
+      - demo
+      - dev
+      - draft
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1: Checkout code from repository
+      - name: checkout repo
+        uses: actions/checkout@v7
+
+      # 2: Install pandoc dependencies
+      - name: install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install texlive texlive-latex-extra pandoc
+
+      # 3: Convert MD to PDF
+      - name: convert markdown to pdf
+        run: pandoc -V geometry:margin=1in README.md -o Resume.pdf
+
+      # 4: Make a release
+      - name: generate tag
+        run: |
+          echo "tag=$(date +%F-%H-%M-%S)-draft" >> "$GITHUB_ENV"
+
+      - name: publish release and clean drafts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create --draft $tag Resume.pdf
+          for draft in $(gh release list --limit 999 |grep -i Draft | cut -f 1); do \
+            gh release delete $draft; \
+          done
+
+      # 4: Upload generated PDF as artifact
+      - name: store artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Resume
+          path: ./Resume.pdf
