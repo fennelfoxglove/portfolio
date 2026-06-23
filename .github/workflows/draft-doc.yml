@@ -1,10 +1,11 @@
 name: Doc to PDF Draft
 
-# TODO: add permissions
+# Add permissions
 permissions:
   actions: write
   contents: write
 
+# Specify branch
 on: 
   push:
     branches:
