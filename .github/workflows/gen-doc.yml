@@ -1,5 +1,7 @@
 name: Doc to PDF
 
+# TODO: add permissions
+
 on: [push]
 
 jobs:
@@ -7,16 +9,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # 1: Checkout code from repository
-      - name: Checkout repo
+      - name: checkout repo
         uses: actions/checkout@v7
 
       # 2: Install pandoc dependencies
-      - name: Install dependencies
-        run: sudo apt install texlive texlive-latex-extra pandoc
+      - name: install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install texlive texlive-latex-extra pandoc
 
-      # 3: Convert
-      - name: Convert Markdown to PDF
-        run: pandoc -V geometry:margin=1in README.md -o README.pdf
+      # 3: Convert MD to PDF
+      - name: convert markdown to pdf
+        run: pandoc -V geometry:margin=1in README.md -o Resume.pdf
+
+      # 4: Make a release
+      - name: generate tag
+        run: echo "tag=${date +%F}" >> "$GITHUB_ENV"
+
+      - name: push tag
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const {tag} = process.env
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/${tag}`
+              sha: context.sha
+            })
+
+      - name: publish release
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create $tag Resume.pdf
 
       # # 3: Install pandoc and convert md to pdf
       # - name: Conversion
@@ -26,9 +52,9 @@ jobs:
       #       -o README.pdf
       #       README.md
 
-      # 4: Upload generated PDF as artifact
-      - name: Upload Documentation
+      # 5: Upload generated PDF as artifact
+      - name: store artifact
         uses: actions/upload-artifact@v7
         with:
           name: Resume
-          path: ./README.pdf
+          path: ./Resume.pdf
