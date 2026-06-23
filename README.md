@@ -16,40 +16,38 @@ Creativity, Willingness to Learn, Empathy, Adaptability, Strong Written and
 Verbal Communication Skills, Integrity
 
 ## Experience
+### InfoStride (October 2019 - )
+- Election Clerk
+  - Assembling and disassembling voting machines and stands
+  - Providing technical and setup support and training
+  - Verifying identification and voter eligibility
+  - Customer complaint deescalation
 
-### **InfoStride** (October 2019 - )
-**Election Clerk**
+### uBreakiFix (July 2021 - April 2024)
+- Technician
+  - Leading store in KPIs for July and August 2021
+  - Successfully completing over 300 electronics repairs.
 
-- Assembling and disassembling voting machines and stands
-- Providing technical and setup support and training
-- Verifying identification and voter eligibility
-- Customer complaint deescalation
+### AutoZone (September 2019 - December 2020)
+- Driver
+  - Completing over 50 battery and headlight repairs.
+  - Training peers on store policy and procedure
 
-### **uBreakiFix** (July 2021 - April 2024)
-**Technician**
 
-- Leading store in KPIs for July and August 2021
-- Successfully completing over 300 electronics repairs.
-
-### **AutoZone** (September 2019 - December 2020)
-**Driver**
-
-- Completing over 50 battery and headlight repairs.
-- Training peers on store policy and procedure
-
-### **Apple** (October 2015 - August 2018)
-**Product Zone Specialist**
-
-- Leading store KPIs
-- Providing technical and setup support and training
-- Facilitating an exceptional customer experience
+### Apple (October 2015 - August 2018)
+- Product Zone Specialist
+  - Leading store KPIs
+  - Providing technical and setup support and training
+  - Facilitating an exceptional customer experience
 
 ## Involvement
 **University of North Carolina School of the Arts** (August 2011 - May 2012)
+
 - Film Student Ambassador · Student Film Ambassador's Leadership Program
 
 ## Education
 **Bachelor of Arts in Audio Arts and Acoustics** 
+
 - Columbia College Chicago | Chicago, IL 2018
 
 ## Certifications
