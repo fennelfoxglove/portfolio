@@ -1,14 +1,14 @@
 name: Doc to PDF
 
 # TODO: add permissions
+permissions:
+  actions: write
 
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      actions: write
     steps:
       # 1: Checkout code from repository
       - name: checkout repo
