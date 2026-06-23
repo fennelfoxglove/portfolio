@@ -6,12 +6,10 @@ grow and maximize his abilities.
 
 ## Skills
 **Technical Skills:**
-
 Spanish, Git, Python, HTML, CSS, JavaScript, Bash, Awk, Nix, Consumer
 Electronics Repair, Blender 3D, Graphic Design, Office Software.
 
 **Soft Skills:** 
-
 Creativity, Willingness to Learn, Empathy, Adaptability, Strong Written and
 Verbal Communication Skills, Integrity
 
