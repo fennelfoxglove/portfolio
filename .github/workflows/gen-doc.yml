@@ -24,7 +24,8 @@ jobs:
 
       # 4: Make a release
       - name: generate tag
-        run: echo "tag=${date +%F}" >> "$GITHUB_ENV"
+        run: |
+          echo "tag=$(date +%F)" >> "$GITHUB_ENV"
 
       - name: push tag
         uses: actions/github-script@v9
