@@ -19,10 +19,7 @@ jobs:
             -o README.pdf
             README.md
 
-      # 3: Convert Markdown to PDF
-      # - name: Convert Markdown to PDF
-
-      # 4: Upload generated PDF as artifact
+      # 3: Upload generated PDF as artifact
       - name: Upload Documentation
         uses: actions/upload-artifact@v7
         with:
