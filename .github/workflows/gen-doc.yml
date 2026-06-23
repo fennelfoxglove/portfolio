@@ -3,6 +3,7 @@ name: Doc to PDF
 # TODO: add permissions
 permissions:
   actions: write
+  contents: write
 
 on: [push]
 
