@@ -5,7 +5,6 @@ Highly motivated, creative, and bilingual team player looking to
 grow and maximize his abilities.
 
 ## Skills
-
 **Technical Skills:**
 
 Spanish, Git, Python, HTML, CSS, JavaScript, Bash, Awk, Nix, Consumer
@@ -18,29 +17,29 @@ Verbal Communication Skills, Integrity
 
 ## Experience
 
-**InfoStride** (October 2019 - )
+### **InfoStride** (October 2019 - )
+**Election Clerk**
 
-Election Clerk
 - Assembling and disassembling voting machines and stands
 - Providing technical and setup support and training
 - Verifying identification and voter eligibility
 - Customer complaint deescalation
 
-**uBreakiFix** (July 2021 - April 2024)
+### **uBreakiFix** (July 2021 - April 2024)
+**Technician**
 
-Technician
 - Leading store in KPIs for July and August 2021
 - Successfully completing over 300 electronics repairs.
 
-**AutoZone** (September 2019 - December 2020)
+### **AutoZone** (September 2019 - December 2020)
+**Driver**
 
-Driver
 - Completing over 50 battery and headlight repairs.
 - Training peers on store policy and procedure
 
-**Apple** (October 2015 - August 2018)
+### **Apple** (October 2015 - August 2018)
+**Product Zone Specialist**
 
-Product Zone Specialist
 - Leading store KPIs
 - Providing technical and setup support and training
 - Facilitating an exceptional customer experience
