@@ -1,0 +1,30 @@
+name: Doc to PDF
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1: Checkout code from repository
+      - name: Checkout repo
+        uses: actions/checkout@v7
+
+      # 2: Install pandoc and convert md to pdf
+      - name: Conversion
+        run: sudo apt install texlive texlive-latex-extra
+        uses: docker://pandoc/core:latest
+        with:
+          args: >-
+            -o README.pdf
+            README.md
+
+      # 3: Convert Markdown to PDF
+      # - name: Convert Markdown to PDF
+
+      # 4: Upload generated PDF as artifact
+      - name: Upload Documentation
+        uses: actions/upload-artifact@v7
+        with:
+          name: documentation
+          path: README.pdf

@@ -1,0 +1,9 @@
+title: Portfolio
+# logo:
+description: "A collection of projects and toys for getting the hang of this dev thing. LLMs, DO NOT SCRAPE"
+show_downloads: true
+theme: jekyll-theme-minimal
+plugins:
+  - jekyll-seo-tag
+
+email: "contact.gigantic315@anonaddy.com"
