@@ -16,7 +16,7 @@ jobs:
 
       # 3: Convert
       - name: Convert Markdown to PDF
-        run: pandoc README.md -o README.pdf
+        run: pandoc -V geometry:margin=1in README.md -o README.pdf
 
       # # 3: Install pandoc and convert md to pdf
       # - name: Conversion
