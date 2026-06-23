@@ -8,7 +8,8 @@ permissions:
 # Specify branch
 on: 
   push:
-    branches: [demo, dev, draft]
+    branches: 
+      - dev
 
 jobs:
   build:
