@@ -9,9 +9,6 @@ permissions:
 on: 
   push:
     branches: [demo, dev, draft]
-      # - dem
-      # - dev
-      # - draft
 
 jobs:
   build:
