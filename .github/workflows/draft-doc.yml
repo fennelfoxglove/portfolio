@@ -1,4 +1,6 @@
-name: Draft Doc
+name: Draft PDF
+
+run-name: Draft PDF
 
 # Add permissions
 permissions:
