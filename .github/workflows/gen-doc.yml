@@ -48,15 +48,8 @@ jobs:
         run: |
           gh release create $tag Resume.pdf
 
-      # # 3: Install pandoc and convert md to pdf
-      # - name: Conversion
-      #   uses: docker://pandoc/core:latest
-      #   with:
-      #     args: >-
-      #       -o README.pdf
-      #       README.md
 
-      # 5: Upload generated PDF as artifact
+      # 4: Upload generated PDF as artifact
       - name: store artifact
         uses: actions/upload-artifact@v7
         with:
