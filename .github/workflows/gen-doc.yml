@@ -40,8 +40,8 @@ jobs:
             })
 
       - name: publish release
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create $tag Resume.pdf
 
