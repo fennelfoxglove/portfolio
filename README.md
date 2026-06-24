@@ -48,6 +48,6 @@ Verbal Communication Skills, Integrity
 
 - Columbia College Chicago | Chicago, IL 2018
 
-## Certifications
+## Certifications & Coursework
 - HTML & CSS Certification - [freeCodeCamp](https://www.freecodecamp.org/certification/fcc7540da3b-315a-443a-9d94-0520a4c7821b/responsive-web-design)
 - JavaScript Algorithms & Data Stuctures Certification - [freeCodeCamp](https://www.freecodecamp.org/certification/fcc7540da3b-315a-443a-9d94-0520a4c7821b/javascript-algorithms-and-data-structures)

@@ -1,15 +1,17 @@
 name: Doc to PDF
 
-# TODO: add permissions
+# Add permissions
 permissions:
   actions: write
   contents: write
 
+# Specify branch
 on: 
   push:
     branches:
       - main
 
+# Start job
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,7 +47,7 @@ jobs:
               sha: context.sha
             })
 
-      - name: publish release
+      - name: publish release and clean draft tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

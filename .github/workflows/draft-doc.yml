@@ -33,11 +33,11 @@ jobs:
         run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
 
       # 4: Make a release
-      - name: generate tag
+      - name: generate draft tag
         run: |
           echo "tag=$(date +%F-%H-%M-%S)-draft" >> "$GITHUB_ENV"
 
-      - name: publish release and clean drafts
+      - name: publish draft
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
