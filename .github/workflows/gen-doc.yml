@@ -54,7 +54,6 @@ jobs:
             gh release delete $draft; \
           done
 
-
       # 5: Upload generated PDF as artifact
       - name: store artifact
         uses: actions/upload-artifact@v7

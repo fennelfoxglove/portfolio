@@ -47,5 +47,5 @@ jobs:
       - name: store artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Resume-draft
-          path: ./Resume-draft.pdf
+          name: Resume
+          path: ./Resume.pdf
