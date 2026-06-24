@@ -50,6 +50,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create $tag Resume.pdf
+          for draft in $(gh release list --limit 999 |grep -i Draft | cut -f 1); do \
+            gh release delete $draft; \
+          done
 
 
       # 5: Upload generated PDF as artifact
