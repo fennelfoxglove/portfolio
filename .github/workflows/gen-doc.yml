@@ -26,11 +26,8 @@ jobs:
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-      # 3: Convert MD to PDF
-      - name: convert markdown to pdf
-        run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
 
-      # 4: Make a release
+      # 3: Tag release
       - name: generate tag
         run: |
           echo "tag=$(date +%F)" >> "$GITHUB_ENV"
@@ -47,18 +44,22 @@ jobs:
               sha: context.sha
             })
 
+      # 4: Convert MD to PDF
+      - name: convert markdown to pdf
+        run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
+
       - name: publish release and clean draft tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create $tag Resume.pdf
-          for draft in $(gh release list --limit 999 |grep -i Draft | cut -f 1); do \
+          for draft in $(gh release list --limit 999 |grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
 
-      # 5: Upload generated PDF as artifact
-      - name: store artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: Resume
-          path: ./Resume.pdf
+      # # 5: Upload generated PDF as artifact
+      # - name: store artifact
+      #   uses: actions/upload-artifact@v7
+      #   with:
+      #     name: Resume
+      #     path: ./Resume.pdf
