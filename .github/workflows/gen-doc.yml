@@ -26,7 +26,6 @@ jobs:
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-
       # 3: Tag release
       - name: generate tag
         run: |
