@@ -5,7 +5,10 @@ permissions:
   actions: write
   contents: write
 
-on: [push]
+on: 
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -49,7 +52,7 @@ jobs:
           gh release create $tag Resume.pdf
 
 
-      # 4: Upload generated PDF as artifact
+      # 5: Upload generated PDF as artifact
       - name: store artifact
         uses: actions/upload-artifact@v7
         with:
