@@ -10,4 +10,6 @@ Git has two types of tags, lightweight and annotated. The former is like a
 bookmark and the latter carries more information useful for making a release.
 
 The more I learn about this, the less I may need the `generate tag` step in the
-action
+action. The question is, how can I access the tag in my md to pdf script? Right
+now, it's dependent on the date. But how can I still push this workflow but have
+it call on the local/remote tag instead?
