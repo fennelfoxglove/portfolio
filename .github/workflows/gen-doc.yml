@@ -29,17 +29,19 @@ jobs:
       # 3: Tag release
       - name: generate tag
         run: |
-          echo "tag=$(date +%F-%S)" >> "$GITHUB_ENV"
+          echo "tag=$(date +%F)" >> "$GITHUB_ENV"
+          echo "time=$(date +%N)" >> "$GITHUB_ENV"
 
       - name: push tag
         uses: actions/github-script@v9
         with:
           script: |
             const {tag} = process.env
+            const {time} = process.env
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `refs/tags/${tag}`,
+              ref: `refs/tags/${tag}-${time}`,
               sha: context.sha
             })
 
