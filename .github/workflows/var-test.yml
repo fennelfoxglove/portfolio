@@ -34,6 +34,8 @@ jobs:
           script: |
             const tag = process.env.tag
             const time = process.env.time
+            const jerry = ${{ github.ref_name }}
+            const nobody = ${{ github.ref }}
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
