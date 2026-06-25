@@ -25,8 +25,8 @@ jobs:
       # 2: Make a release
       - name: generate draft tag
         run: |
-          echo "tag=$(date +%F-%H-%M-%S)-draft" >> "$GITHUB_ENV"
-          echo "time=$(date +%N)" >> "$GITHUB_ENV"
+          echo "timestamp=$(date +%F-%H-%M-%S)-draft" >> "$GITHUB_ENV"
+          echo "nano=$(date +%N)" >> "$GITHUB_ENV"
 
       - name: push tag
         uses: actions/github-script@v9
@@ -35,8 +35,8 @@ jobs:
           NOBODY: ${{ github.ref }}
         with:
           script: |
-            const tag = process.env.tag
-            const time = process.env.time
+            const timestamp = process.env.timestamp
+            const nano = process.env.nano
             const jerry = process.env.JERRY
             const nobody = process.env.NOBODY
             github.rest.git.createRef({
@@ -46,8 +46,8 @@ jobs:
               sha: context.sha
             })
 
-            console.log(`Tag: ${tag}`)
-            console.log(`Time: ${time}`)
+            console.log(`Timestamp: ${timestamp}`)
+            console.log(`Nano: ${nano}`)
             console.log(`Jerry: ${jerry}`)
             console.log(`Nobody: ${nobody}`)
 
