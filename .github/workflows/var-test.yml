@@ -30,12 +30,15 @@ jobs:
 
       - name: push tag
         uses: actions/github-script@v9
+        env:
+          JERRY: ${{ github.ref_name }}
+          NOBODY: ${{ github.ref }}
         with:
           script: |
             const tag = process.env.tag
             const time = process.env.time
-            const jerry = ${{ github.ref_name }}
-            const nobody = ${{ github.ref }}
+            const jerry = process.env.JERRY
+            const nobody = process.env.NOBODY
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -45,4 +48,6 @@ jobs:
 
             console.log(`Tag: ${tag}`)
             console.log(`Time: ${time}`)
+            console.log(`Time: ${jerry}`)
+            console.log(`Time: ${nobody}`)
 
