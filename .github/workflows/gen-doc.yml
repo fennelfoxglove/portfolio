@@ -35,7 +35,7 @@ jobs:
       - name: push tag
         env:
           VERSION: ${{ github.ref }}
-          TIMESTAMP: ${{ env.timestamp }}
+          TIMESTAMP: ${{ github.env.timestamp }}
         uses: actions/github-script@v9
         with:
           script: |
