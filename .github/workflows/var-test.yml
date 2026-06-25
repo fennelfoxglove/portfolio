@@ -36,7 +36,7 @@ jobs:
           JERRY: ${{ github.ref_name }}
           NOBODY: ${{ github.ref }}
           SARAH: ${{ github.event.push.tag_name }}
-          JONAS: ${{ github.event }}
+          # JONAS: ${{ github.event }}
         with:
           script: |
             const timestamp = process.env.timestamp
@@ -44,7 +44,7 @@ jobs:
             const jerry = process.env.JERRY
             const nobody = process.env.NOBODY
             const sarah = process.env.SARAH
-            const jonas = process.env.jonas
+            # const jonas = process.env.JONAS
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -57,5 +57,5 @@ jobs:
             console.log(`Jerry: ${jerry}`)
             console.log(`Nobody: ${nobody}`)
             console.log(`Sarah: ${sarah}`)
-            console.log(`Jonas: ${jonas}`)
+            # console.log(`Jonas: ${jonas}`)
 
