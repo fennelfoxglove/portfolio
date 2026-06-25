@@ -48,6 +48,6 @@ jobs:
 
             console.log(`Tag: ${tag}`)
             console.log(`Time: ${time}`)
-            console.log(`Time: ${jerry}`)
-            console.log(`Time: ${nobody}`)
+            console.log(`Jerry: ${jerry}`)
+            console.log(`Nobody: ${nobody}`)
 
