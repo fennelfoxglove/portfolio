@@ -26,7 +26,12 @@ jobs:
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-      # 3: Create release
+      # 3: Generate tag
+      - name: generate tag
+        run: |
+          echo "timestamp=$(date +%F)" >> "GITHUB_ENV"
+
+      # 4: Push tag
       - name: push tag
         env:
           VERSION: ${{ github.ref }}
@@ -34,14 +39,15 @@ jobs:
         with:
           script: |
             const version = process.env.VERSION
+            const {timestamp} = process.env
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `${version}`,
+              ref: `refs/tags/${version}-${timestamp}`,
               sha: context.sha
             })
 
-      # 4: Convert MD to PDF
+      # 5: Convert MD to PDF
       - name: convert markdown to pdf
         run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
 
