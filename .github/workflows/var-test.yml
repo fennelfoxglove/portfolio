@@ -35,7 +35,7 @@ jobs:
         env:
           JERRY: ${{ github.ref_name }}
           NOBODY: ${{ github.ref }}
-          SARAH: ${{ github.event.push.tag_name }}
+          # SARAH: ${{ github.event.push.tag_name }}
           # JONAS: ${{ github.event }}
         with:
           script: |
@@ -43,7 +43,7 @@ jobs:
             const nano = process.env.nano
             const jerry = process.env.JERRY
             const nobody = process.env.NOBODY
-            const sarah = process.env.SARAH
+            # const sarah = process.env.SARAH
             # const jonas = process.env.JONAS
             github.rest.git.createRef({
               owner: context.repo.owner,
@@ -56,6 +56,6 @@ jobs:
             console.log(`Nano: ${nano}`)
             console.log(`Jerry: ${jerry}`)
             console.log(`Nobody: ${nobody}`)
-            console.log(`Sarah: ${sarah}`)
+            # console.log(`Sarah: ${sarah}`)
             # console.log(`Jonas: ${jonas}`)
 
