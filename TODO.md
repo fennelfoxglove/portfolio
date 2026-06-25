@@ -17,3 +17,35 @@ it call on the local/remote tag instead?
 https://stackoverflow.com/questions/58177786/get-the-current-pushed-tag-in-github-actions
 
 So I gotta figure how to access `${{ github.ref }}` `${{ github.ref_name }}`
+
+Answer:
+
+```yaml
+      # 3: Create release
+      - name: push tag
+        env:
+          version: ${{ github.ref }}
+        uses: actions/github-script@v9
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `${version}`,
+              sha: context.sha
+            })
+```
+
+## git tags
+How do git tags work with releases and creating refs with github actions
+
+So what does the flow look like? 
+1. Make changes on `dev`
+2. Validate generated draft locally and on
+3. Squash all commits
+4. Merge `dev` into `main`
+5. Push to `main`
+6. Create tag `main` and push tag
+7. Only build on tag push to `main`
+
+So only build the next release when we push the tag to `main`

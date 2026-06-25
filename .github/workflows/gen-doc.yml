@@ -8,8 +8,8 @@ permissions:
 # Specify branch
 on: 
   push:
-    branches:
-      - main
+    tags:
+      - 'v*.*'
 
 # Start job
 jobs:
@@ -26,22 +26,17 @@ jobs:
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-      # 3: Tag release
-      - name: generate tag
-        run: |
-          echo "tag=$(date +%F)" >> "$GITHUB_ENV"
-          echo "time=$(date +%N)" >> "$GITHUB_ENV"
-
+      # 3: Create release
       - name: push tag
+        env:
+          version: ${{ github.ref }}
         uses: actions/github-script@v9
         with:
           script: |
-            const {tag} = process.env
-            const {time} = process.env
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `refs/tags/${tag}-${time}`,
+              ref: `${version}`,
               sha: context.sha
             })
 
