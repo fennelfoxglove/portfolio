@@ -33,7 +33,7 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const verstion = process.env.VERSION
+            const version = process.env.VERSION
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
