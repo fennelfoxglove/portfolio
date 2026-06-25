@@ -42,7 +42,7 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `${nobody}`,
+              ref: `${timestamep}-${nano}`,
               sha: context.sha
             })
 

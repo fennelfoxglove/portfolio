@@ -29,10 +29,11 @@ jobs:
       # 3: Create release
       - name: push tag
         env:
-          version: ${{ github.ref }}
+          VERSION: ${{ github.ref }}
         uses: actions/github-script@v9
         with:
           script: |
+            const verstion = process.env.VERSION
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
