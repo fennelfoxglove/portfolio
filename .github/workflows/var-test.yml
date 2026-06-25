@@ -32,8 +32,8 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const tag = process.env
-            const time = process.env
+            const tag = process.env.tag
+            const time = process.env.time
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
