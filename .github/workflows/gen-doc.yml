@@ -28,18 +28,19 @@ jobs:
 
       # 3: Generate tag
       - name: generate tag
-        env:
-          VERSION: ${{ github.ref }}
         run: |
           echo "timestamp=$(date +%F)" >> "GITHUB_ENV"
 
       # 4: Push tag
       - name: push tag
+        env:
+          VERSION: ${{ github.ref }}
+          TIMESTAMP: ${{ env.timestamp }}
         uses: actions/github-script@v9
         with:
           script: |
             const version = process.env.VERSION
-            const {timestamp} = process.env
+            const timestamp = process.env.TIMESTAMP
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
