@@ -10,6 +10,8 @@ permissions:
 # Specify branch
 on: 
   push:
+    branches:
+      - dev
     tags:
       - 'v*.*'
 
@@ -25,7 +27,7 @@ jobs:
       # 2: Make a release
       - name: generate draft tag
         run: |
-          echo "timestamp=$(date +%F-%H-%M-%S)-draft" >> "$GITHUB_ENV"
+          echo "timestamp=$(date +%F-%H-%M-%S)" >> "$GITHUB_ENV"
           echo "nano=$(date +%N)" >> "$GITHUB_ENV"
 
       - name: push tag
@@ -42,7 +44,7 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `${timestamp}-${nano}`,
+              ref: `${timestamp}-draft`,
               sha: context.sha
             })
 
