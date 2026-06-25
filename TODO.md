@@ -1,9 +1,10 @@
 # To Do
 
 ## Tasks
-- [.] Figure out git tag versioning
-- [.] Overwrite old release with new one as soon as it becomes available
+- [X] Figure out git tag versioning
+- [X] Overwrite old release with new one as soon as it becomes available
 - [.] Add PDF download link to `_config.yml`
+  - [.] What's the proper syntax for adding a yaml hyperlink?
 
 ## Notes
 Git has two types of tags, lightweight and annotated. The former is like a
@@ -49,3 +50,41 @@ So what does the flow look like?
 7. Only build on tag push to `main`
 
 So only build the next release when we push the tag to `main`
+
+That issue is solved.
+
+## updating refs
+Next we need to figure how to get variable from one step to the other. Here's
+the problem:
+
+I have a `step` that generates a timestamp with: 
+
+```yaml
+run: | 
+  echo "timestamp=$(date +%F)" >> "GITHUB_ENV"
+```
+
+Normally I can pull this into my next `step`:
+
+```yaml
+      # 4: Push tag
+      - name: push tag
+        env:
+          timestamp: "string"
+          VERSION: ${{ github.ref }}
+          TIMESTAMP: ${{ github.env.timestamp }}
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const version = process.env.VERSION
+            const timestamp = process.env.TIMESTAMP
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `${version}-${timestamp}`,
+              sha: context.sha
+            })
+```
+
+But the problem I'm running into is that `env` will overwrite the `GITHUB_ENV`
+variable without importing from the previous `step`
