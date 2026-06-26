@@ -6,7 +6,6 @@ permissions:
   actions: write
   contents: write
   deployments: write
-  metadata: read
   packages: write
   pages: write
   # actions: write
