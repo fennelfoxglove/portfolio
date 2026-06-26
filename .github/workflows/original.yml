@@ -33,7 +33,7 @@ jobs:
             # const {tag} = process.env
             const version = ${{ github.ref_name }}
             const ver = version.replace('.', '-')
-            console.log(ver)
+            # console.log(ver)
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -41,7 +41,7 @@ jobs:
               sha: context.sha
             })
             # console.log(tag)
-            console.log(ver)
+            # console.log(ver)
       - name: generate pdf
         run: |
           pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
