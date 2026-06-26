@@ -16,6 +16,8 @@ on:
 # Start job
 jobs:
   build:
+    env:
+      VERSION: ${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
       # 1: Checkout code from repository
@@ -40,15 +42,15 @@ jobs:
       # 5: Push tag
       - name: push tag
         uses: actions/github-script@v9
-        env:
-          VERSION: ${{ github.ref }}
+        # env:
+        #   VERSION: ${{ github.ref }}
         with:
           script: |
             const version = process.env.VERSION
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `${version}`,
+              ref: `${version}-release`,
               sha: context.sha
             })
             console.log(version)
