@@ -45,7 +45,7 @@ jobs:
           VERSION: ${{ github.ref }}
           script: |
             const timestamp = ${{ env.timestamp }}
-            const version = ${{ VERSION }}
+            const version = ${{ github.ref }}
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
