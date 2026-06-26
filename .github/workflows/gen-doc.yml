@@ -15,8 +15,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      VERSION: ${{ github.ref }}
     steps:
       # 1: Checkout code from repository
       - name: checkout repo
@@ -36,14 +34,15 @@ jobs:
       # 4: Push tag
       - name: push tag
         uses: actions/github-script@v9
+        env:
+          VERSION: ${{ github.ref }}
         with:
           script: |
-            const {timestamp} = process.env
             const version = process.env.VERSION
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `${version}-${timestamp}`,
+              ref: `${version}-`,
               sha: context.sha
             })
             console.log(version)
@@ -53,6 +52,7 @@ jobs:
       - name: convert markdown to pdf
         run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
 
+        # 6: Create release
       - name: publish release and clean draft tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -62,7 +62,7 @@ jobs:
             gh release delete $draft; \
           done
 
-      # 6: Upload generated PDF as artifact
+      # 7: Upload generated PDF as artifact
       - name: store artifact
         uses: actions/upload-artifact@v7
         with:
