@@ -4,7 +4,6 @@ run-name: Publish Resume PDF as Release Asset
 
 permissions:
   actions: write
-  checks: write
   contents: write
   deployments: write
   metadata: read
