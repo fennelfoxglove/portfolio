@@ -5,12 +5,6 @@ run-name: Publish Resume PDF as Release Asset
 permissions:
   actions: write
   contents: write
-  deployments: write
-  packages: write
-  pages: write
-  # actions: write
-  # contents: write 
-  # deployments: write
 
 on:
   push:
@@ -42,7 +36,8 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            const ver = "${{ github.ref_name }}"
+            # const ver = "${{ github.ref_name }}"
+            const ver = procees.env.tag
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -57,7 +52,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create $vers Test-Resume.pdf
+          gh release create $ver Test-Resume.pdf
           for draft in $(gh release list --limit 999 | grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
