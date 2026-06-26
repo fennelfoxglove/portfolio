@@ -2,9 +2,10 @@ name: Publish Resume PDF as Release Asset
 
 run-name: Publish Resume PDF as Release Asset
 
-permissions: write-all
-  # actions: write
-  # contents: write
+permissions:
+  actions: write
+  contents: write
+  contents: read
   # deployments: write
 
 on:
