@@ -45,7 +45,7 @@ jobs:
               ref: `${versionl}-`,
               sha: context.sha
             })
-            console.log(version)
+            console.log(versionl)
 
       # 5: Convert MD to PDF
       - name: convert markdown to pdf
@@ -56,7 +56,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # echo $version
           echo $versionl
           gh release create $versionl Resume.pdf
           for draft in $(gh release list --limit 999 |grep -i draft | cut -f 1); do \
