@@ -42,7 +42,7 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `refs/tags/${ver}`,
+              ref: `refs/tags/release-${ver}`,
               sha: context.sha
             })
             // console.log(tag)
