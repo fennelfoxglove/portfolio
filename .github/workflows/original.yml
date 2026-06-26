@@ -2,9 +2,9 @@ name: Publish Resume PDF as Release Asset
 
 run-name: Publish Resume PDF as Release Asset
 
-permissions: write-all
-  # actions: write
-  # contents: write 
+permissions:
+  actions: write
+  contents: write 
   # deployments: write
 
 on:
@@ -50,7 +50,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create $ver Test-Resume.pdf
+          gh release create $vers Test-Resume.pdf
           for draft in $(gh release list --limit 999 | grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
