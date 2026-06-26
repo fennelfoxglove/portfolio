@@ -51,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VER: ${{ github.ref_name }}
         run: |
-          gh release create ${{ process.env.VER }} Test-Resume.pdf
+          gh release create $VER Test-Resume.pdf
           for draft in $(gh release list --limit 999 | grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
