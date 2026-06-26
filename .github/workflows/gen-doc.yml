@@ -16,8 +16,6 @@ on:
 # Start job
 jobs:
   build:
-    env:
-      VERSION: ${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
       # 1: Checkout code from repository
@@ -30,30 +28,37 @@ jobs:
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-      # 3: Convert MD to PDF
-      - name: convert markdown to pdf
-        run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
-
-      # 4: Generate tag
-      - name: generate tag
+      # 3: Generate timestamp
+      - name: gen-timestamp
         run: |
-          echo "timestamp=$(date +%F)" >> "GITHUB_ENV"
+          echo "timestamp=$(date +%F)" "$GITHUB_OUTPUT"
 
-      # 5: Push tag
+      # 3: Push tag
       - name: push tag
         uses: actions/github-script@v9
-        # env:
-        #   VERSION: ${{ github.ref }}
+        env:
+          TIMESTAMP: ${{ steps.gen-timestamp.outputs.timestamp }}
+          VERSION: ${{ github.ref }}
         with:
           script: |
+            const timestamp = process.env.TIMESTAMP
             const version = process.env.VERSION
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `${version}-release`,
+              ref: `${version}-${timestamp}`,
               sha: context.sha
             })
             console.log(version)
+
+      # 4: Convert MD to PDF
+      - name: convert markdown to pdf
+        run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
+
+      # # 5: Generate tag
+      # - name: generate tag
+      #   run: |
+      #     echo "timestamp=$(date +%F)" >> "GITHUB_ENV"
 
         # 6: Create release
       - name: publish release and clean draft tags
