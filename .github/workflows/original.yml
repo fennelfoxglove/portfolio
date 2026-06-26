@@ -33,7 +33,7 @@ jobs:
             })
       - name: generate pdf
         run: |
-          pandoc resume.md --variable colorlinks=true -o Test-Resume.pdf
+          pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
       - name: publish release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
