@@ -31,9 +31,8 @@ jobs:
           echo "tag=$(date +%F)-0" >> "$GITHUB_ENV"
 
       - name: push tag
-        uses: actions/github-script@v9
+        uses: actions/github-script@v8
         with:
-            # const ver = "${{ github.ref_name }}".replace('.', '-')
           script: |
             const ver = "${{ github.ref_name }}"
             github.rest.git.createRef({
