@@ -4,7 +4,20 @@ run-name: Publish Resume PDF as Release Asset
 
 permissions:
   actions: write
-  contents: write 
+  checks: write
+  contents: write
+  deployments: write
+  discussions: write
+  issues: write
+  metadata: read
+  packages: write
+  pages: write
+  pullRequests: write
+  repositoryProjects: write
+  securityEvents: write
+  statuses: write
+  # actions: write
+  # contents: write 
   # deployments: write
 
 on:
