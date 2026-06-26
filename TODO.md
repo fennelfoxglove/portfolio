@@ -91,3 +91,9 @@ variable without importing from the previous `step`.
 
 Is there a way to import the `$GITHUB_ENV` from a previous `step`?
 Alternatively, is there a way to `run` a shell command from within the env?
+
+Deemed this unnecessary. 
+
+## Drafts no longer actually release
+Is the draft deal deleting all the drafts before they publish?
+Why can't I see them? Why did this break?
