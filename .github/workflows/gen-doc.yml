@@ -66,7 +66,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo $version
           gh release create $version Resume.pdf
           for draft in $(gh release list --limit 999 |grep -i draft | cut -f 1); do \
             gh release delete $draft; \
