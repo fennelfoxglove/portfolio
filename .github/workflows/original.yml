@@ -21,6 +21,7 @@ jobs:
         run: |
           echo "tag=$(date +%F)-0" >> "$GITHUB_ENV"
       - name: push tag
+        ACTIONS_STEP_DEBUG: true
         uses: actions/github-script@v9
         with:
           script: |
@@ -31,6 +32,7 @@ jobs:
               ref: `refs/tags/${tag}`,
               sha: context.sha
             })
+            console.log(tag)
       - name: generate pdf
         run: |
           pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
