@@ -26,7 +26,7 @@ jobs:
 
       - name: generate pdf
         run: |
-          pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
+          pandoc -V geometry:margin=0.75in -V pagestyle:empty README.md -o Resume.pdf
 
       - name: publish release
         env:
