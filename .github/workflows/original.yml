@@ -30,16 +30,17 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const {tag} = process.env
+            # const {tag} = process.env
             const version = ${{ github.ref_name }}
+            const ver = version.replace('.', '-')
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `refs/tags/${version}-release`,
+              ref: `refs/tags/${ver}`,
               sha: context.sha
             })
-            console.log(tag)
-            console.log(version)
+            # console.log(tag)
+            console.log(ver)
       - name: generate pdf
         run: |
           pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
