@@ -34,6 +34,7 @@ jobs:
             const version = ${{ github.ref_name }}
             const vers = "${{ github.ref_name }}"
             const ver = "${version.replace('.', '-');}"
+            const x = ver
             # console.log(ver)
             github.rest.git.createRef({
               owner: context.repo.owner,
