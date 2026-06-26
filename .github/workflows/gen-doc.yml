@@ -8,10 +8,10 @@ permissions:
 # Specify branch
 on: 
   push:
-    branches:
-      - main
-    # tags:
-    #   - 'v*.*'
+    # branches:
+    #   - main
+    tags:
+      - 'v*.*'
 
 # Start job
 jobs:
@@ -28,38 +28,38 @@ jobs:
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-      # 3: Generate tag
+      # 3: Convert MD to PDF
+      - name: convert markdown to pdf
+        run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
+
+      # 4: Generate tag
       - name: generate tag
         run: |
           echo "timestamp=$(date +%F)" >> "GITHUB_ENV"
 
-      # 4: Push tag
+      # 5: Push tag
       - name: push tag
         uses: actions/github-script@v9
         env:
           VERSION: ${{ github.ref }}
         with:
           script: |
-            const versionl = process.env.VERSION
+            const version = process.env.VERSION
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `${versionl}-`,
+              ref: `${version}`,
               sha: context.sha
             })
-            console.log(versionl)
-
-      # 5: Convert MD to PDF
-      - name: convert markdown to pdf
-        run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
+            console.log(version)
 
         # 6: Create release
       - name: publish release and clean draft tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo $versionl
-          gh release create $versionl Resume.pdf
+          echo $version
+          gh release create $version Resume.pdf
           for draft in $(gh release list --limit 999 |grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
