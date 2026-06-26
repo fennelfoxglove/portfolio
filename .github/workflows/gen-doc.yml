@@ -31,18 +31,20 @@ jobs:
       # 3: Generate timestamp
       - name: gen-timestamp
         run: |
-          echo "timestamp=$(date +%F)" >> "$GITHUB_OUTPUT"
+          echo "timestamp=$(date +%F)" >> "$GITHUB_ENV"
 
       # 3: Push tag
       - name: push tag
         uses: actions/github-script@v9
-        env:
-          TIMESTAMP: ${{ steps.gen-timestamp.outputs.timestamp }}
-          VERSION: ${{ github.ref }}
+        # env:
+        #   TIMESTAMP: ${{ steps.gen-timestamp.outputs.timestamp }}
+        #   VERSION: ${{ github.ref }}
         with:
+          TIMESTAMP: ${{ env.timestamp }}
+          VERSION: ${{ github.ref }}
           script: |
-            const timestamp = process.env.TIMESTAMP
-            const version = process.env.VERSION
+            const timestamp = TIMESTAMP
+            const version = VERSION
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -50,6 +52,7 @@ jobs:
               sha: context.sha
             })
             console.log(version)
+            console.log(timestamp)
 
       # 4: Convert MD to PDF
       - name: convert markdown to pdf

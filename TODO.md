@@ -97,3 +97,64 @@ Deemed this unnecessary.
 ## Drafts no longer actually release
 Is the draft deal deleting all the drafts before they publish?
 Why can't I see them? Why did this break?
+
+Github was having issues.
+
+Now I can get back to actually debugging this.
+
+## How to pass iformation between job steps?
+https://stackoverflow.com/questions/57819539/how-to-share-a-calculated-value-between-job-steps
+
+```yaml
+# Example 1 - Asker example
+
+name: Test, Build and Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build_and_push:
+    name: Build and Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set tag var
+        id: vars
+        run: echo "docker_tag=$(echo ${GITHUB_REF} | cut -d'/' -f3)-${GITHUB_SHA}" >> $GITHUB_OUTPUT
+      - name: Docker Build
+        uses: "actions/docker/cli@master"
+        with:
+          args: build . --file Dockerfile -t cflynnus/blog:${{ steps.vars.outputs.docker_tag }}
+      - name: Docker Tag Latest
+        uses: "actions/docker/cli@master"
+        with:
+          args: tag cflynnus/blog:${{ steps.vars.outputs.docker_tag }} cflynnus/blog:latest
+
+# Example 2 - Multiple vars
+
+      - name: Set output variables
+        id: vars
+        run: |
+          pr_title="[Test] Add report file $(date +%d-%m-%Y)"
+          pr_body="This PR was auto-generated on $(date +%d-%m-%Y) \
+            by [create-pull-request](https://github.com/peter-evans/create-pull-request)."
+          echo "pr_title=$pr_title" >> $GITHUB_OUTPUT
+          echo "pr_body=$pr_body" >> $GITHUB_OUTPUT
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: ${{ steps.vars.outputs.pr_title }}
+          body: ${{ steps.vars.outputs.pr_body }}
+
+# Example 3 - Environment variables
+
+      - name: Set environment variables
+        run: |
+          echo "PR_TITLE=[Test] Add report file $(date +%d-%m-%Y)" >> $GITHUB_ENV
+          echo "PR_BODY=This PR was auto-generated on $(date +%d-%m-%Y) by [create-pull-request](https://github.com/peter-evans/create-pull-request)." >> $GITHUB_ENV
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: ${{ env.PR_TITLE }}
+          body: ${{ env.PR_BODY }}
+```
