@@ -25,22 +25,23 @@ jobs:
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-      - name: generate tag
-        run: |
-          echo "ver=$(date +%F)-0" >> "$GITHUB_ENV"
+      # - name: generate tag
+      #   run: |
+      #     echo "ver=$(date +%F)-0" >> "$GITHUB_ENV"
 
-      - name: push tag
-        uses: actions/github-script@v8
-        with:
-          script: |
-            # const ver = "${{ github.ref_name }}"
-            const {ver} = process.env
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: `refs/tags/release-${ver}`,
-              sha: context.sha
-            })
+      # - name: push tag
+      #   uses: actions/github-script@v8
+      #   with:
+      #     script: |
+      #       # const ver = "${{ github.ref_name }}"
+      #       const {ver} = process.env
+      #       github.rest.git.createRef({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         ref: `refs/tags/release-${ver}`,
+      #         sha: context.sha
+      #       })
+
       - name: generate pdf
         run: |
           pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
@@ -48,8 +49,9 @@ jobs:
       - name: publish release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VER: ${{ github.ref_name }}
         run: |
-          gh release create $ver Test-Resume.pdf
+          gh release create ${{ process.env.VER }} Test-Resume.pdf
           for draft in $(gh release list --limit 999 | grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
