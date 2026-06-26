@@ -32,12 +32,12 @@ jobs:
           VERSION: ${{ github.ref_name }}
         with:
           script: |
-            # const {tag} = process.env
-            # const version = ${{ github.ref_name }}
-            # const vers = "${{ github.ref_name }}"
-            # const ver = "${version.replace('.', '-');}"
-            # const x = ver
-            # console.log(ver)
+            // const {tag} = process.env
+            // const version = ${{ github.ref_name }}
+            // const vers = "${{ github.ref_name }}"
+            // const ver = "${version.replace('.', '-');}"
+            // const x = ver
+            // console.log(ver)
             const ver = process.env.VERSION
             github.rest.git.createRef({
               owner: context.repo.owner,
@@ -45,8 +45,8 @@ jobs:
               ref: `refs/tags/${ver}`,
               sha: context.sha
             })
-            # console.log(tag)
-            # console.log(ver)
+            // console.log(tag)
+            // console.log(ver)
       - name: generate pdf
         run: |
           pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
