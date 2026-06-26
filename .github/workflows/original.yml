@@ -30,7 +30,7 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const version = process.env.VERSION
+            const version = ${{ github.ref_name }}
             const ver = version.replace('.', '-')
             github.rest.git.createRef({
               owner: context.repo.owner,
