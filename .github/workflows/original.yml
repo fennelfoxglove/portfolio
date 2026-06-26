@@ -32,8 +32,8 @@ jobs:
           script: |
             # const {tag} = process.env
             const version = ${{ github.ref_name }}
-            const ver = "${{ github.ref_name }}"
-            # const ver = version.replace('.', '-')
+            const vers = "${{ github.ref_name }}"
+            const ver = "${version.replace('.', '-')}"
             # console.log(ver)
             github.rest.git.createRef({
               owner: context.repo.owner,
