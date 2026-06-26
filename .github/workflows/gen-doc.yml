@@ -26,14 +26,14 @@ jobs:
 
       - name: generate pdf
         run: |
-          pandoc -V geometry:margin=0.75in README.md -o Test-Resume.pdf
+          pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
 
       - name: publish release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VER: ${{ github.ref_name }}
         run: |
-          gh release create $VER Test-Resume.pdf
+          gh release create $VER Resume.pdf
           for draft in $(gh release list --limit 999 | grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
