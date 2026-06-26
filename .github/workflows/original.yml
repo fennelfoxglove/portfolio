@@ -28,25 +28,17 @@ jobs:
           echo "tag=$(date +%F)-0" >> "$GITHUB_ENV"
       - name: push tag
         uses: actions/github-script@v9
-        env:
-          VERSION: ${{ github.ref_name }}
+        # env:
+        #   VERSION: ${{ github.ref_name }}
         with:
           script: |
-            // const {tag} = process.env
-            // const version = ${{ github.ref_name }}
-            // const vers = "${{ github.ref_name }}"
-            // const ver = "${version.replace('.', '-');}"
-            // const x = ver
-            // console.log(ver)
-            const ver = process.env.VERSION
+            const ver = ${{ github.ref_name }}
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: `refs/tags/release-${ver}`,
               sha: context.sha
             })
-            // console.log(tag)
-            // console.log(ver)
       - name: generate pdf
         run: |
           pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
