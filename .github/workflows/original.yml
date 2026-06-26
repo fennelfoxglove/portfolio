@@ -33,6 +33,7 @@ jobs:
             # const {tag} = process.env
             const version = ${{ github.ref_name }}
             const ver = version.replace('.', '-')
+            console.log(ver)
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -49,6 +50,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create $version Test-Resume.pdf
-          for draft in $(gh release list --limit 999 | grep Draft | cut -f 1); do \
+          for draft in $(gh release list --limit 999 | grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
