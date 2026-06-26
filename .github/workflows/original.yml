@@ -33,9 +33,9 @@ jobs:
       - name: push tag
         uses: actions/github-script@v9
         with:
+            # const ver = "${{ github.ref_name }}".replace('.', '-')
           script: |
             const version = "${{ github.ref_name }}"
-            const ver = "${{ github.ref_name }}".replace('.', '-')
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
