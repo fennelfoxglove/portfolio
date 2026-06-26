@@ -62,6 +62,7 @@ jobs:
 
         # 6: Create release
       - name: publish release and clean draft tags
+        uses: actions/download-artifactv8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
