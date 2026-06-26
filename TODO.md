@@ -87,4 +87,7 @@ Normally I can pull this into my next `step`:
 ```
 
 But the problem I'm running into is that `env` will overwrite the `GITHUB_ENV`
-variable without importing from the previous `step`
+variable without importing from the previous `step`.
+
+Is there a way to import the `$GITHUB_ENV` from a previous `step`?
+Alternatively, is there a way to `run` a shell command from within the env?
