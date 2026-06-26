@@ -19,18 +19,22 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v7
+
       - name: install dependencies
         run: |
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
+
       - name: generate tag
         run: |
           echo "tag=$(date +%F)-0" >> "$GITHUB_ENV"
+
       - name: push tag
         uses: actions/github-script@v9
         with:
           script: |
-            const ver = "${{ github.ref_name }}"
+            const version = "${{ github.ref_name }}"
+            const ver = "${{ github.ref_name }}".replace('.', '-')
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -40,6 +44,7 @@ jobs:
       - name: generate pdf
         run: |
           pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
+
       - name: publish release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
