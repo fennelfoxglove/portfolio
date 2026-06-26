@@ -8,8 +8,10 @@ permissions:
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
+    tags:
+      - 'v*.*'
 
 jobs: 
   Generate-Publish-PDF:
@@ -29,13 +31,15 @@ jobs:
         with:
           script: |
             const {tag} = process.env
+            const version = ${{ github.ref_name }}
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `refs/tags/${tag}`,
+              ref: `refs/tags/${version}`,
               sha: context.sha
             })
             console.log(tag)
+            console.log(version)
       - name: generate pdf
         run: |
           pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
@@ -43,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create $tag Test-Resume.pdf
+          gh release create $version Test-Resume.pdf
           for draft in $(gh release list --limit 999 | grep Draft | cut -f 1); do \
             gh release delete $draft; \
           done
