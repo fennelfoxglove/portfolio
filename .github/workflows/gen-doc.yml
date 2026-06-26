@@ -8,8 +8,10 @@ permissions:
 # Specify branch
 on: 
   push:
-    tags:
-      - 'v*.*'
+    branches:
+      - main
+    # tags:
+    #   - 'v*.*'
 
 # Start job
 jobs:
