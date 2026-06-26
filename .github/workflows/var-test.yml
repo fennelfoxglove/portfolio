@@ -8,12 +8,12 @@ permissions:
   contents: write
 
 # Specify branch
-on: 
-  push:
-    branches:
-      - dev
-    tags:
-      - 'v*.*'
+# on: 
+#   push:
+#     branches:
+#       - dev
+#     tags:
+#       - 'v*.*'
 
 # Job start
 jobs:

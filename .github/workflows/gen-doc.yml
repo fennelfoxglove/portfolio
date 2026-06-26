@@ -1,82 +1,39 @@
-name: Doc to PDF
+name: MD to PDF
+run-name: Publish Resume PDF
 
-# Add permissions
 permissions:
   actions: write
   contents: write
 
-# Specify branch
-on: 
+on:
   push:
     # branches:
     #   - main
     tags:
       - 'v*.*'
 
-# Start job
-jobs:
-  build:
+jobs: 
+  Generate-Publish-PDF:
     runs-on: ubuntu-latest
     steps:
-      # 1: Checkout code from repository
-      - name: checkout repo
+      - name: checkout
         uses: actions/checkout@v7
 
-      # 2: Install pandoc dependencies
-      - name: install Dependencies
+      - name: install dependencies
         run: |
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-      # 3: Generate timestamp
-      - name: gen-timestamp
+      - name: generate pdf
         run: |
-          echo "timestamp=$(date +%F)" >> "$GITHUB_ENV"
+          pandoc -V geometry:margin=0.75in README.md -o Test-Resume.pdf
 
-      # 3: Push tag
-      - name: push tag
-        uses: actions/github-script@v9
-        id: george
-        # env:
-        #   TIMESTAMP: ${{ steps.gen-timestamp.outputs.timestamp }}
-        #   VERSION: ${{ github.ref }}
-        with:
-          # TIMESTAMP: ${{ env.timestamp }}
-          # VERSION: ${{ github.ref }}
-          script: |
-            const timestamp = ${{ env.timestamp }}
-            const version = ${{ github.ref }}
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: `${version}-${timestamp}`,
-              sha: context.sha
-            })
-            console.log(version)
-            console.log(timestamp)
-
-      # 4: Convert MD to PDF
-      - name: convert markdown to pdf
-        run: pandoc -V geometry:margin=0.75in README.md -o Resume.pdf
-
-      # # 5: Generate tag
-      # - name: generate tag
-      #   run: |
-      #     echo "timestamp=$(date +%F)" >> "GITHUB_ENV"
-
-        # 6: Create release
-      - name: publish release and clean draft tags
+      - name: publish release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VER: ${{ github.ref_name }}
         run: |
-          gh release create $version Resume.pdf
-          for draft in $(gh release list --limit 999 |grep -i draft | cut -f 1); do \
+          gh release create $VER Test-Resume.pdf
+          for draft in $(gh release list --limit 999 | grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
-
-      # 7: Upload generated PDF as artifact
-      - name: store artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: Resume
-          path: ./Resume.pdf
