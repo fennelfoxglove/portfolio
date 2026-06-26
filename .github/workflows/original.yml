@@ -15,9 +15,6 @@ on:
 
 jobs: 
   Generate-Publish-PDF:
-    permissions:
-      actions: write
-      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -37,7 +34,7 @@ jobs:
         with:
           script: |
             # const ver = "${{ github.ref_name }}"
-            const {ver} = procees.env
+            const {ver} = process.env
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
