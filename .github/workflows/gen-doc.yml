@@ -46,6 +46,7 @@ jobs:
               ref: `${version}-${timestamp}`,
               sha: context.sha
             })
+            console.log(version)
             console.log(timestamp)
 
       # 5: Convert MD to PDF
