@@ -21,6 +21,9 @@ on:
 
 jobs: 
   Generate-Publish-PDF:
+    permissions:
+      actions: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: checkout
