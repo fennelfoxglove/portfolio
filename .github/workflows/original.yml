@@ -25,26 +25,21 @@ jobs:
           sudo apt update
           sudo apt install texlive texlive-latex-extra pandoc
 
-      # - name: generate tag
-      #   run: |
-      #     echo "ver=$(date +%F)-0" >> "$GITHUB_ENV"
-
       # - name: push tag
-      #   uses: actions/github-script@v8
+      #   uses: actions/github-script@v9
       #   with:
       #     script: |
-      #       # const ver = "${{ github.ref_name }}"
-      #       const {ver} = process.env
+      #       const ver = "${{ github.ref_name }}"
       #       github.rest.git.createRef({
       #         owner: context.repo.owner,
       #         repo: context.repo.repo,
-      #         ref: `refs/tags/release-${ver}`,
+      #         ref: `refs/tags/${ver}`,
       #         sha: context.sha
       #       })
 
       - name: generate pdf
         run: |
-          pandoc README.md --variable colorlinks=true -o Test-Resume.pdf
+          pandoc -V geometry:margin=0.75in README.md -o Test-Resume.pdf
 
       - name: publish release
         env:
