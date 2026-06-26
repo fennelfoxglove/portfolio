@@ -28,14 +28,10 @@ jobs:
           echo "tag=$(date +%F)-0" >> "$GITHUB_ENV"
       - name: push tag
         uses: actions/github-script@v9
-        permissions:
-          actions: write
-          contents: write
-        env:
-          VERSION: ${{ github.ref_name }}
         with:
           script: |
-            const ver = process.env.VERSION
+            const version = process.env.VERSION
+            const ver = version.replace('.', '-')
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
