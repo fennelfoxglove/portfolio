@@ -36,6 +36,7 @@ jobs:
       # 3: Push tag
       - name: push tag
         uses: actions/github-script@v9
+        id: george
         # env:
         #   TIMESTAMP: ${{ steps.gen-timestamp.outputs.timestamp }}
         #   VERSION: ${{ github.ref }}
@@ -43,8 +44,8 @@ jobs:
           TIMESTAMP: ${{ env.timestamp }}
           VERSION: ${{ github.ref }}
           script: |
-            const timestamp = TIMESTAMP
-            const version = VERSION
+            const timestamp = ${{ TIMESTAMP }}
+            const version = ${{ VERSION }}
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
