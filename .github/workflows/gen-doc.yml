@@ -46,6 +46,7 @@ jobs:
               ref: `${version}-${timestamp}`,
               sha: context.sha
             })
+            console.log(timestamp)
 
       # 5: Convert MD to PDF
       - name: convert markdown to pdf
@@ -55,14 +56,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create $tag Resume.pdf
+          gh release create $version Resume.pdf
           for draft in $(gh release list --limit 999 |grep -i draft | cut -f 1); do \
             gh release delete $draft; \
           done
 
-      # # 5: Upload generated PDF as artifact
-      # - name: store artifact
-      #   uses: actions/upload-artifact@v7
-      #   with:
-      #     name: Resume
-      #     path: ./Resume.pdf
+      # 6: Upload generated PDF as artifact
+      - name: store artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Resume
+          path: ./Resume.pdf
