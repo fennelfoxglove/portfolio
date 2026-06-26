@@ -33,7 +33,6 @@ jobs:
       - name: push tag
         uses: actions/github-script@v9
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             # const ver = "${{ github.ref_name }}".replace('.', '-')
           script: |
             const ver = "${{ github.ref_name }}"
