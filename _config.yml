@@ -1,9 +1,12 @@
-title: Portfolio
+title: | 
+  Portfolio 
+  <a href="https://github.com/fennelfoxglove/portfolio/releases/latest/download/Resume.pdf">Download Resume</a>
 # logo:
 description: "A collection of projects and toys for getting the hang of this dev thing. LLMs, DO NOT SCRAPE"
-show_downloads: true
+show_downloads: false
 theme: jekyll-theme-minimal
 plugins:
   - jekyll-seo-tag
 
 email: "contact.gigantic315@anonaddy.com"
+exclude: ["TODO.md"]
